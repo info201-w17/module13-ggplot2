@@ -41,7 +41,7 @@ Learning this library will allow you to easily make nearly any kind of (static) 
 - [Telling stories with the grammar of graphics](https://codewords.recurse.com/issues/six/telling-stories-with-data-using-the-grammar-of-graphics)
 - [A Layered Grammar of Graphics (Wickham)](http://vita.had.co.nz/papers/layered-grammar.pdf)
 
-??[Making Maps with R](http://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html)
+<!-- ??[Making Maps with R](http://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html) -->
 
 
 ## A Grammar of Graphics
@@ -59,11 +59,11 @@ Just as the grammar of language helps us construct meaningful sentences out of w
 <!--http://r4ds.had.co.nz/data-visualisation.html#the-layered-grammar-of-graphics << good diagrams (for slides?)
 -->
 
-Wickham further organizes these components into **layers**, where each layer has a single _geometric object_, _statistical transformation_, and _position adjustment_. Following this grammar, you can think of each plot as a set of layers of images, where each image's appearance is based on some aspect of the data set. 
+Wickham further organizes these components into **layers**, where each layer has a single _geometric object_, _statistical transformation_, and _position adjustment_. Following this grammar, you can think of each plot as a set of layers of images, where each image's appearance is based on some aspect of the data set.
 
 All together, this grammar enables us to discuss what plots look like using a standard set of vocabulary. And like with `dplyr` and the _Grammar of Data Manipulation, `ggplot2` uses this grammar directly to declare plots, allowing you to more easily create specific visual images.
 
- 
+
 ## Basic Plotting with `ggplot2`
 The [**`ggplot2`**](http://ggplot2.tidyverse.org/) library provides a set of _declarative functions_ that mirror the above grammar, enabling us to efficaciously specify what we want a plot to look like (e.g., what data, geometric objects, aesthetics, scales, etc. we want it to have).
 
@@ -82,9 +82,9 @@ In order to create a plot, you call the `ggplot()` function, specifying the **da
 
 
 ```r
-# plot the `mpg` data set, with highway milage on the x axis and 
+# plot the `mpg` data set, with highway milage on the x axis and
 # engine displacement (power) on the y axis:
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
@@ -113,7 +113,7 @@ All aesthetics for a plot are specified in the [`aes()`](http://ggplot2.tidyvers
 
 ```r
 # color the data by car type
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = class))
 ```
 
@@ -125,7 +125,7 @@ Note that using the `aes()` function will cause the visual channel to be based o
 
 
 ```r
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy), color = "blue")  # blue points!
 ```
 
@@ -153,11 +153,11 @@ Each of these geometries will need to include a set of **aesthetic mappings** (u
 
 ```r
 # line chart of milage by engine power
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_line(mapping = aes(x = displ, y = hwy))
 
 # bar chart of car type
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_bar(mapping = aes(x = class))  # no y mapping needed!
 ```
 
@@ -168,7 +168,7 @@ What makes this really powerful is that you can add **multiple geometries** to a
 
 ```r
 #plot with both points and smoothed line
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy)) +
   geom_smooth(mapping = aes(x = displ, y = hwy))
 ```
@@ -187,7 +187,7 @@ If you look at the above `bar` chart, you'll notice that the the `y` axis was de
 ```r
 # silly example: bar chart of engine power vs. milage
 # (we need the `y` mapping since it is not implied by the stat transform
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_bar(mapping = aes(x = displ, y = hwy), stat="identity")
 ```
 
@@ -196,7 +196,7 @@ Additionally, `ggplot2` contains **`stat_`** functions (e.g., `stat_identity` fo
 
 ```r
 # generate a "binned" (grouped) display of highway milage
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   stat_bin(aes(x=hwy, color=hwy), binwidth=4)  # binned into groups of 4 units
 ```
 
@@ -206,7 +206,7 @@ Notice the above chart is actually a [histogram](https://en.wikipedia.org/wiki/H
 
 ```r
 # these two charts are identical
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_bar(mapping = aes(x = class))
 
 ggplot(data = mpg) +
@@ -219,7 +219,7 @@ In addition to a default statistical transformation, each `geom` also has a defa
 
 ```r
 # bar chart of milage, colored by engine type
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_bar(mapping = aes(x = hwy, fill=class))  # fill color, not outline color
 ```
 
@@ -230,12 +230,12 @@ The `geom_bar` by default uses a position adjustment of `"stack"`, which makes e
 
 ```r
 # a filled bar chart (fill the vertical height)
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_bar(mapping = aes(x = hwy, fill=drv), position="fill")
 
 # a dodged bar chart (values next to each other)
 # (not great dodging demos in this data set)
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_bar(mapping = aes(x = hwy, fill=drv), position="dodge")
 ```
 
@@ -249,19 +249,19 @@ Whenever you specify an **aesthetic mapping**, `ggplot` uses a particular **scal
 
 ```r
 # color the data by engine type
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = class))
-``` 
+```
 
 `ggplot` automatically adds a **scale** for each mapping to the plot:
 
 ```r
 # same as above, with explicit scales
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = class)) +
   scale_x_continuous() +
   scale_y_continuous() +
-  scale_colour_discrete()  
+  scale_colour_discrete()
 ```
 
 Each scale can be represented by a function with the following name: `scale_`, followed by the name of the aesthetic property, followed by an `_` and the name of the scale. A `continuous` scale will handle things like numeric data (where there is a _continuous set_ of numbers), whereas a `discrete` scale will handle things like colors (since there is a small list of _distinct_ colors).
@@ -271,7 +271,7 @@ While the default scales will work fine, it is possible to explicitly add differ
 
 ```r
 # milage relationship, ordered in reverse
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = cty, y = hwy)) +
   scale_x_reverse()
 ```
@@ -286,16 +286,16 @@ You can also use scales to specify the _range_ of values on a axis by passing in
 suv = mpg %>% filter(class == "suv")  # suvs
 compact = mpg %>% filter(class == "compact")  # compact cars
 
-# scales 
+# scales
 x_scale <- scale_x_continuous(limits = range(mpg$displ))
 y_scale <- scale_y_continuous(limits = range(mpg$hwy))
 col_scale <- scale_colour_discrete(limits = unique(mpg$drv))
 
-ggplot(data = suv) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = drv)) + 
+ggplot(data = suv) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = drv)) +
   x_scale + y_scale + col_scale
 
-ggplot(data = compact) + 
+ggplot(data = compact) +
   geom_point(mapping = aes(x = displ, y = hwy, color = drv)) +
   x_scale + y_scale + col_scale
 ```
@@ -312,7 +312,7 @@ A more common scale to change is which set of colors to use in a plot. While you
 
 
 ```r
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = class), size=4) +
   scale_color_brewer(palette = "Set3")
 ```
@@ -333,7 +333,7 @@ The next term from the Grammar of Graphics that can be specified is the **coordi
 - **`coord_polar`** a plot using [polar coordinates](https://en.wikipedia.org/wiki/Polar_coordinate_system)
 - **`coord_quickmap`** a coordinate system that approximates a good aspect ratio for maps. See documentation for more details.
 
-Most of these system support the `xlim` and `ylim` arguments, which specify the _limits_ for the coordinate system (see above). 
+Most of these system support the `xlim` and `ylim` arguments, which specify the _limits_ for the coordinate system (see above).
 
 
 ### Facets
@@ -343,10 +343,10 @@ You can construct a plot with multiple facets by using the **`facet_wrap()`** fu
 
 
 ```r
-# a plot with facets based on vehicle type. 
+# a plot with facets based on vehicle type.
 # similar to what we did with `suv` and `compact`!
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) + 
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
   facet_wrap(~class)
 ```
 
@@ -364,7 +364,7 @@ You can add titles and axis labels to a chart using the **`labs()`** function (_
 
 
 ```r
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = class)) +
   labs(title = "Fuel Efficiency by Engine Power, 1999-2008",  # plot title
        x = "Engine power (litres displacement)",  # x-axis label (with units!)
