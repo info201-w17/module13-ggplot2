@@ -54,7 +54,7 @@ Just as the grammar of language helps us construct meaningful sentences out of w
 - a **position adjustment** for locating each geometric object on the plot
 - a **scale** (e.g., range of values) for each aesthetic mapping used
 - a **coordinate system** used to organize the geometric objects
-- the **facets** or groups of data shown in different plotss
+- the **facets** or groups of data shown in different plots
 
 <!--http://r4ds.had.co.nz/data-visualisation.html#the-layered-grammar-of-graphics << good diagrams (for slides?)
 -->
@@ -71,7 +71,7 @@ The [**`ggplot2`**](http://ggplot2.tidyverse.org/) library provides a set of _de
 
 ```r
 install.packages("ggplot2")  # once per machine
-library("ggplot")
+library("ggplot2")
 ```
 
 This will make all of the plotting functions you'll need available.
