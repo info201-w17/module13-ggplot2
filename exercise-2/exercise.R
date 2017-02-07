@@ -2,26 +2,29 @@
 
 # Install and load `ggplot2`
 # install.packages("ggplot2") # if needed
-
+library("ggplot2")
 
 # For this exercise you will again be working with the `diamonds` data set.
 # Use `?diamonds` to review details about this data set
-
 
 
 ## Statistical Transformations
 
 # Draw a bar chart of the diamonds data, organized by cut
 # The height of each bar is based on the "count" (number) of diamonds with that cut
-
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut))
 
 # Use the `stat_count` to apply the statistical transformation "count" to the diamonds
 # by cut. You do not need a separate geometry layer!
-
+ggplot(data = diamonds) + 
+  stat_count(mapping = aes(x = cut))
 
 # Use the `stat_summary` function to draw a chart with a summary layer.
 # Map the x-position to diamond `cut`, and the y-position to diamond `depth`
 # Bonus: use `min` as the function ymin, `max` as the function ymax, and `median` as the function y
+ggplot(data = diamonds) + 
+  stat_summary(mapping = aes(x = cut, y = depth), fun.ymin = min, fun.ymax = max, fun.y = median)
 
 
 
@@ -29,13 +32,16 @@
 
 # Draw a bar chart of diamond data organized by cut, with each bar filled by clarity.
 # You should see a _stacked_ bar chart.
-
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = clarity))
 
 # Draw the same chart again, but with each element positioned to "fill" the y axis
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
 
-
-# Draw the same chart again, but with each element positioned to "dodge" each other
-
+# Draw the same chart again, but with each element positioned to "dodge" each other" the y axis
+ggplot(data = diamonds) +
+geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
 
 # Draw a plot with point geometry with the x-position mapped to `cut` and the y-position mapped to `clarity`
 # This creates a "grid" grouping the points
